@@ -1,17 +1,80 @@
 <?php
 $is_auth = rand(0, 1);
 
+function sum_format(int $cost){
+    $cost=ceil($cost);
+    if($cost>=1000){
+        $cost = number_format($cost,0,"."," ");
+    }
+    return '<span class="lot__cost">'.$cost.'<b class="rub">₽</b></span>';
+}
+
 $user_name = 'hedonist'; // укажите здесь ваше имя
-$categories = array("Доски и лыжи", "Крепления", "Ботинки", "Одежда",
-    "Инструменты", "Разное");
-$announcements = [
-    ['Name'=>'2014 Rossignol District Snowboard','Category'=>'Доски и лыжи','Cost'=>'10999','Url'=>'img/lot-1.jpg'],
-    ['Name'=>'DC Ply Mens 2016/2017 Snowboard','Category'=>'Доски и лыжи','Cost'=>'159999','Url'=>'img/lot-2.jpg'],
-    ['Name'=>'Крепления Union Contact Pro 2015 года размер L/XL','Category'=>'Крепления','Cost'=>'8000','Url'=>'img/lot-3.jpg'],
-    ['Name'=>'Ботинки для сноуборда DC Mutiny Charocal','Category'=>'Ботинки','Cost'=>'10999','Url'=>'img/lot-4.jpg'],
-    ['Name'=>'Куртка для сноуборда DC Mutiny Charocal','Category'=>'Одежда','Cost'=>'7500','Url'=>'img/lot-5.jpg'],
-    ['Name'=>'Маска Oakley Canopy','Category'=>'Разное','Cost'=>'5400','Url'=>'img/lot-6.jpg'],
+$categories = [
+    [
+        'eng' => 'boards',
+        'rus' => 'Доски и лыжи',
+    ],
+    [
+        'eng' => 'attachment',
+        'rus' => 'Крепления',
+    ],
+    [
+        'eng' => 'boots',
+        'rus' => 'Ботинки',
+    ],
+    [
+        'eng' => 'clothing',
+        'rus' => 'Одежда',
+    ],
+    [
+        'eng' => 'tools',
+        'rus' => 'Инструменты',
+    ],
+    [
+        'eng' => 'other',
+        'rus' => 'Разное',
+    ],
 ];
+$announcements = [
+    [
+        'name' => '2014 Rossignol District Snowboard',
+        'category' => 'Доски и лыжи',
+        'cost' => '10990',
+        'url' => 'img/lot-1.jpg'
+    ],
+    [
+        'name' => 'DC Ply Mens 2016/2017 Snowboard',
+        'category' => 'Доски и лыжи',
+        'cost' => '159999',
+        'url' => 'img/lot-2.jpg'
+    ],
+    [
+        'name' => 'Крепления Union Contact Pro 2015 года размер L/XL',
+        'category' => 'Крепления',
+        'cost' => '8000',
+        'url' => 'img/lot-3.jpg'
+    ],
+    [
+        'name' => 'Ботинки для сноуборда DC Mutiny Charocal',
+        'category' => 'Ботинки',
+        'cost' => '10999',
+        'url' => 'img/lot-4.jpg'
+    ],
+    [
+        'name' => 'Куртка для сноуборда DC Mutiny Charocal',
+        'category' => 'Одежда',
+        'cost' => '7500',
+        'url' => 'img/lot-5.jpg'
+    ],
+    [
+        'name' => 'Маска Oakley Canopy',
+        'category' => 'Разное',
+        'cost' => '5400',
+        'url' => 'img/lot-6.jpg'
+    ],
+];
+
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -21,7 +84,7 @@ $announcements = [
     <link href="../css/normalize.min.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
 </head>
-<body>
+<body onload="start()">
 <div class="page-wrapper">
 
 <header class="main-header">
@@ -69,13 +132,13 @@ $announcements = [
         <h2 class="promo__title">Нужен стафф для катки?</h2>
         <p class="promo__text">На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное снаряжение.</p>
         <ul class="promo__list">
-            <!--заполните этот список из массива категорий sdfdf-->
+            <!--заполните этот список из массива категорий-->
 
 
             <?php
-            foreach($categories as $cat) {
-                ?><li class="promo__item promo__item--boards">
-                <a class="promo__link" href="pages/all-lots.html"><?=$cat?></a>
+            foreach($categories as $a) {
+                ?><li class="promo__item promo__item--<?=$a['eng']?>">
+                <a class="promo__link" href="pages/all-lots.html"><?=$a['rus']?></a>
                 </li><?php
             }
             ?>
@@ -86,22 +149,22 @@ $announcements = [
             <h2>Открытые лоты</h2>
         </div>
         <ul class="lots__list">
-            <!--заполните этот список из массива с товарами fdgf-->
+            <!--заполните этот список из массива с товарами-->
 
 
             <?php
             foreach ($announcements as $a){
             ?><li class="lots__item lot">
                 <div class="lot__image">
-                    <img src="<?=$a['Url']?>" width="350" height="260" alt="">
+                    <img src="<?=$a['url']?>" width="350" height="260" alt="">
                 </div>
                 <div class="lot__info">
-                    <span class="lot__category"><?=$a["Category"]?></span>
-                    <h3 class="lot__title"><a class="text-link" href="pages/lot.html"><?=$a["Name"] ?></a></h3>
+                    <span class="lot__category"><?=$a['category']?></span>
+                    <h3 class="lot__title"><a class="text-link" href="pages/lot.html"><?=$a['name']?></a></h3>
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount">Стартовая Цена</span>
-                            <span class="lot__cost"><?=$a['Cost']?><b class="rub">р</b></span>
+                            <span class="lot__cost"><?=$a ['cost']?><b class="rub">р</b></span>
                         </div>
                         <div class="lot__timer timer">
                             12:23
@@ -122,9 +185,9 @@ $announcements = [
 
 
             <?php
-            foreach($categories as $cat) {
+            foreach($categories as $a) {
             ?><li class="nav__item">
-                <a href="pages/all-lots.html"><?=$cat?></a>
+                <a href="pages/all-lots.html"><?=$a['rus']?></a>
             </li>
             <?php }
             ?>
