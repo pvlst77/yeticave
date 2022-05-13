@@ -74,7 +74,27 @@ $announcements = [
         'url' => 'img/lot-6.jpg'
     ],
 ];
+function sub_format ($number)
+    {
+        $number = ceil($number);
+        if($number<1000)
+        {
+            $result = $number;
+        }
+        else
+        {
+            $result = number_format($number,0,","," ");
+        }
+        return $result.'<b class="rub">p</b>';
+    }
 
+    function timer()
+    {
+        $now = new DateTime('now');
+        $nextdaynight = new DateTime('24:00');
+        $interval = $now->diff($nextdaynight);
+        return $interval->format('%h:%i');
+    }
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -164,10 +184,10 @@ $announcements = [
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount">Стартовая Цена</span>
-                            <span class="lot__cost"><?=$a ['cost']?><b class="rub">р</b></span>
+                            <span class="lot__cost"><?=sub_format($a["cost"])?></span>
                         </div>
                         <div class="lot__timer timer">
-                            12:23
+                        <?=timer()?>
                         </div>
                     </div>
                 </div>
