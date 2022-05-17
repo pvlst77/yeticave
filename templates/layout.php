@@ -63,7 +63,7 @@
             <?php
             foreach($categories as $a) {
             ?><li class="nav__item">
-                <a href="pages/all-lots.html"><?=$a['rus']?></a>
+                <a href="pages/all-lots.html"><?=$a['name']?></a>
             </li>
             <?php }
             ?>

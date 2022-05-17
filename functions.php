@@ -1,4 +1,5 @@
 <?php
+require_once('data.php');
 $is_auth = rand(0, 1);
 
 function sum_format(int $cost){
@@ -10,7 +11,7 @@ function sum_format(int $cost){
 }
 
 $user_name = 'hedonist'; // укажите здесь ваше имя
-$categories = [
+/*$categories = [
     [
         'eng' => 'boards',
         'rus' => 'Доски и лыжи',
@@ -35,8 +36,8 @@ $categories = [
         'eng' => 'other',
         'rus' => 'Разное',
     ],
-];
-$announcements = [
+];*/
+/*$announcements = [
     [
         'name' => '2014 Rossignol District Snowboard',
         'category' => 'Доски и лыжи',
@@ -73,7 +74,7 @@ $announcements = [
         'cost' => '5400',
         'url' => 'img/lot-6.jpg'
     ],
-];
+];*/
 function sub_format ($number)
     {
         $number = ceil($number);
