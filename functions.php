@@ -1,6 +1,6 @@
 <?php
 require_once('data.php');
-$is_auth = rand(0, 1);
+
 
 function sum_format(int $cost){
     $cost=ceil($cost);
@@ -10,7 +10,7 @@ function sum_format(int $cost){
     return '<span class="lot__cost">'.$cost.'<b class="rub">₽</b></span>';
 }
 
-$user_name = 'hedonist'; // укажите здесь ваше имя
+
 /*$categories = [
     [
         'eng' => 'boards',
@@ -105,14 +105,27 @@ function sub_format ($number)
     }
     
     function include_template($name, $data) {
+        $user = $_COOKIE['user'] ?? "";
+        $is_auth = isset($_COOKIE['user']);
         $name = 'templates/' . $name;
         $result = '';
         if (!file_exists($name)) {
             return $result;
         }
+        $data['is_auth'] = $is_auth;
+        $data['user'] = $user;
         ob_start();
         extract($data);
         require($name);
         $result = ob_get_clean();
         return $result;
     }
+
+    function clear_data($val)
+{
+    $val = trim($val);
+    $val = stripslashes($val);
+    $val = strip_tags($val);
+    $val = htmlspecialchars($val);
+    return $val;
+}
